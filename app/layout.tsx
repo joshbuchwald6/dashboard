@@ -1,8 +1,7 @@
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import { useEffect } from "react"
-import { blockCryptoExtensions } from "@/lib/block-extensions"
+import { ExtensionBlocker } from "@/components/extension-blocker"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -17,17 +16,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // Only run in browser environment
-  if (typeof window !== 'undefined') {
-    useEffect(() => {
-      blockCryptoExtensions();
-    }, []);
-  }
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <ExtensionBlocker />
           {children}
         </ThemeProvider>
       </body>
