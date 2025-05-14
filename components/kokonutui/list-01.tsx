@@ -54,18 +54,16 @@ const ACCOUNTS: AccountItem[] = [
 ]
 
 export default function List01({ totalBalance = "$26,540.25", accounts = ACCOUNTS, className }: List01Props) {
-  // Enhanced type guard to ensure all required properties exist and account is not null
+  // Enhanced type guard to ensure account is not null before checking properties
   const safeAccounts = accounts?.filter((account): account is AccountItem => {
-    if (!account) return false;
-    return (
+    return !!account && 
       typeof account === 'object' &&
       'id' in account &&
       'title' in account &&
       'balance' in account &&
       'type' in account &&
       typeof account.type === 'string' &&
-      ['savings', 'checking', 'investment', 'debt'].includes(account.type as string)
-    );
+      ['savings', 'checking', 'investment', 'debt'].includes(account.type as string);
   }) ?? [];
 
   return (
@@ -93,7 +91,7 @@ export default function List01({ totalBalance = "$26,540.25", accounts = ACCOUNT
         <div className="space-y-1">
           {safeAccounts.map((account) => (
             <div
-              key={account?.id}
+              key={account.id}
               className={cn(
                 "group flex items-center justify-between",
                 "p-2 rounded-lg",
@@ -104,31 +102,31 @@ export default function List01({ totalBalance = "$26,540.25", accounts = ACCOUNT
               <div className="flex items-center gap-2">
                 <div
                   className={cn("p-1.5 rounded-lg", {
-                    "bg-emerald-100 dark:bg-emerald-900/30": account?.type === "savings",
-                    "bg-blue-100 dark:bg-blue-900/30": account?.type === "checking",
-                    "bg-purple-100 dark:bg-purple-900/30": account?.type === "investment",
-                    "bg-red-100 dark:bg-red-900/30": account?.type === "debt",
+                    "bg-emerald-100 dark:bg-emerald-900/30": account.type === "savings",
+                    "bg-blue-100 dark:bg-blue-900/30": account.type === "checking",
+                    "bg-purple-100 dark:bg-purple-900/30": account.type === "investment",
+                    "bg-red-100 dark:bg-red-900/30": account.type === "debt",
                   })}
                 >
-                  {account?.type === "savings" && (
+                  {account.type === "savings" && (
                     <Wallet className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                   )}
-                  {account?.type === "checking" && <QrCode className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />}
-                  {account?.type === "investment" && (
+                  {account.type === "checking" && <QrCode className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />}
+                  {account.type === "investment" && (
                     <ArrowUpRight className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
                   )}
-                  {account?.type === "debt" && <CreditCard className="w-3.5 h-3.5 text-red-600 dark:text-red-400" />}
+                  {account.type === "debt" && <CreditCard className="w-3.5 h-3.5 text-red-600 dark:text-red-400" />}
                 </div>
                 <div>
-                  <h3 className="text-xs font-medium text-zinc-900 dark:text-zinc-100">{account?.title}</h3>
-                  {account?.description && (
+                  <h3 className="text-xs font-medium text-zinc-900 dark:text-zinc-100">{account.title}</h3>
+                  {account.description && (
                     <p className="text-[11px] text-zinc-600 dark:text-zinc-400">{account.description}</p>
                   )}
                 </div>
               </div>
 
               <div className="text-right">
-                <span className="text-xs font-medium text-zinc-900 dark:text-zinc-100">{account?.balance}</span>
+                <span className="text-xs font-medium text-zinc-900 dark:text-zinc-100">{account.balance}</span>
               </div>
             </div>
           ))}
