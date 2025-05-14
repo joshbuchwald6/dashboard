@@ -1,6 +1,3 @@
-```tsx
-"use client"
-
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -20,9 +17,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  useEffect(() => {
-    blockCryptoExtensions();
-  }, []);
+  // Only run in browser environment
+  if (typeof window !== 'undefined') {
+    useEffect(() => {
+      blockCryptoExtensions();
+    }, []);
+  }
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -34,4 +34,3 @@ export default function RootLayout({
     </html>
   )
 }
-```
