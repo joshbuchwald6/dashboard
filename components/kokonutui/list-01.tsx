@@ -54,17 +54,25 @@ const ACCOUNTS: AccountItem[] = [
 ]
 
 export default function List01({ totalBalance = "$26,540.25", accounts = ACCOUNTS, className }: List01Props) {
-  // Enhanced type guard to ensure account is not null before checking properties
-  const safeAccounts = accounts?.filter((account): account is AccountItem => {
-    return !!account && 
-      typeof account === 'object' &&
+  // More robust type guard to ensure account is valid and has all required properties
+  const safeAccounts = (accounts ?? []).filter((account): account is AccountItem => {
+    if (!account || typeof account !== 'object') return false;
+    
+    const hasRequiredProperties = 
       'id' in account &&
+      typeof account.id === 'string' &&
       'title' in account &&
+      typeof account.title === 'string' &&
       'balance' in account &&
+      typeof account.balance === 'string' &&
       'type' in account &&
-      typeof account.type === 'string' &&
-      ['savings', 'checking', 'investment', 'debt'].includes(account.type as string);
-  }) ?? [];
+      typeof account.type === 'string';
+    
+    if (!hasRequiredProperties) return false;
+    
+    const validTypes = ['savings', 'checking', 'investment', 'debt'] as const;
+    return validTypes.includes(account.type as typeof validTypes[number]);
+  });
 
   return (
     <div
