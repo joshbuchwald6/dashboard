@@ -30,6 +30,43 @@ interface List03Props {
   className?: string
 }
 
+// Mock data for development
+const ITEMS: ListItem[] = [
+  {
+    id: "1",
+    title: "Emergency Fund",
+    subtitle: "3 months of expenses saved",
+    icon: PiggyBank,
+    iconStyle: "savings",
+    date: "Target: Dec 2024",
+    amount: "$15,000",
+    status: "in-progress",
+    progress: 65,
+  },
+  {
+    id: "2",
+    title: "New Car Fund",
+    subtitle: "Saving for down payment",
+    icon: TrendingUp,
+    iconStyle: "investment",
+    date: "Target: Jun 2024",
+    amount: "$10,000",
+    status: "pending",
+    progress: 30,
+  },
+  {
+    id: "3",
+    title: "Student Loan",
+    subtitle: "Debt repayment plan",
+    icon: CreditCard,
+    iconStyle: "debt",
+    date: "Target: Mar 2025",
+    amount: "$25,000",
+    status: "in-progress",
+    progress: 45,
+  },
+]
+
 const iconStyles = {
   savings: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
   investment: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
@@ -53,42 +90,6 @@ const statusConfig = {
     bg: "bg-emerald-100 dark:bg-emerald-900/30",
   },
 }
-
-const ITEMS: ListItem[] = [
-  {
-    id: "1",
-    title: "Emergency Fund",
-    subtitle: "3 months of expenses saved",
-    icon: PiggyBank,
-    iconStyle: "savings",
-    date: "Target: Dec 2024",
-    amount: "$15,000",
-    status: "in-progress",
-    progress: 65,
-  },
-  {
-    id: "2",
-    title: "Stock Portfolio",
-    subtitle: "Tech sector investment plan",
-    icon: TrendingUp,
-    iconStyle: "investment",
-    date: "Target: Jun 2024",
-    amount: "$50,000",
-    status: "pending",
-    progress: 30,
-  },
-  {
-    id: "3",
-    title: "Debt Repayment",
-    subtitle: "Student loan payoff plan",
-    icon: CreditCard,
-    iconStyle: "debt",
-    date: "Target: Mar 2025",
-    amount: "$25,000",
-    status: "in-progress",
-    progress: 45,
-  },
-]
 
 export default function List03({ items = ITEMS, className }: List03Props) {
   return (

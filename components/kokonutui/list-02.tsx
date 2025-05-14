@@ -25,18 +25,12 @@ interface List02Props {
   className?: string
 }
 
-const categoryStyles = {
-  shopping: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
-  food: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
-  transport: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
-  entertainment: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
-}
-
+// Mock data for development
 const TRANSACTIONS: Transaction[] = [
   {
     id: "1",
-    title: "Apple Store Purchase",
-    amount: "$999.00",
+    title: "Grocery Shopping",
+    amount: "$156.78",
     type: "outgoing",
     category: "shopping",
     icon: ShoppingCart,
@@ -48,7 +42,7 @@ const TRANSACTIONS: Transaction[] = [
     title: "Salary Deposit",
     amount: "$4,500.00",
     type: "incoming",
-    category: "transport",
+    category: "income",
     icon: Wallet,
     timestamp: "Today, 9:00 AM",
     status: "completed",
@@ -65,33 +59,33 @@ const TRANSACTIONS: Transaction[] = [
   },
   {
     id: "4",
-    title: "Apple Store Purchase",
-    amount: "$999.00",
+    title: "Restaurant",
+    amount: "$45.80",
     type: "outgoing",
-    category: "shopping",
+    category: "dining",
     icon: ShoppingCart,
-    timestamp: "Today, 2:45 PM",
+    timestamp: "Yesterday",
     status: "completed",
   },
   {
     id: "5",
-    title: "Supabase Subscription",
-    amount: "$15.99",
+    title: "Gym Membership",
+    amount: "$29.99",
     type: "outgoing",
-    category: "entertainment",
+    category: "health",
     icon: CreditCard,
-    timestamp: "Yesterday",
-    status: "pending",
+    timestamp: "2 days ago",
+    status: "completed",
   },
   {
     id: "6",
-    title: "Vercel Subscription",
-    amount: "$15.99",
-    type: "outgoing",
-    category: "entertainment",
-    icon: CreditCard,
-    timestamp: "Yesterday",
-    status: "pending",
+    title: "Freelance Payment",
+    amount: "$850.00",
+    type: "incoming",
+    category: "income",
+    icon: Wallet,
+    timestamp: "2 days ago",
+    status: "completed",
   },
 ]
 
