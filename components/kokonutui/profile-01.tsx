@@ -1,6 +1,9 @@
 import { LogOut, MoveUpRight, Settings, CreditCard, FileText } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { signOut } from 'firebase/auth'
+import { auth } from '@/lib/firebase'
+import { useRouter } from 'next/navigation'
 
 interface MenuItem {
   label: string
@@ -30,6 +33,7 @@ export default function Profile01({
   avatar = defaultProfile.avatar,
   subscription = defaultProfile.subscription,
 }: Partial<Profile01Props> = defaultProfile) {
+  const router = useRouter()
   const menuItems: MenuItem[] = [
     {
       label: "Subscription",
@@ -96,9 +100,13 @@ export default function Profile01({
 
             <button
               type="button"
-              className="w-full flex items-center justify-between p-2 
-                                hover:bg-zinc-50 dark:hover:bg-zinc-800/50 
+              className="w-full flex items-center justify-between p-2 \
+                                hover:bg-zinc-50 dark:hover:bg-zinc-800/50 \
                                 rounded-lg transition-colors duration-200"
+              onClick={async () => {
+                await signOut(auth)
+                router.replace('/')
+              }}
             >
               <div className="flex items-center gap-2">
                 <LogOut className="w-4 h-4" />

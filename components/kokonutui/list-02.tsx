@@ -25,12 +25,18 @@ interface List02Props {
   className?: string
 }
 
-// Mock data for development
+const categoryStyles = {
+  shopping: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
+  food: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
+  transport: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
+  entertainment: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
+}
+
 const TRANSACTIONS: Transaction[] = [
   {
     id: "1",
-    title: "Grocery Shopping",
-    amount: "$156.78",
+    title: "Apple Store Purchase",
+    amount: "$999.00",
     type: "outgoing",
     category: "shopping",
     icon: ShoppingCart,
@@ -42,7 +48,7 @@ const TRANSACTIONS: Transaction[] = [
     title: "Salary Deposit",
     amount: "$4,500.00",
     type: "incoming",
-    category: "income",
+    category: "transport",
     icon: Wallet,
     timestamp: "Today, 9:00 AM",
     status: "completed",
@@ -59,33 +65,33 @@ const TRANSACTIONS: Transaction[] = [
   },
   {
     id: "4",
-    title: "Restaurant",
-    amount: "$45.80",
+    title: "Apple Store Purchase",
+    amount: "$999.00",
     type: "outgoing",
-    category: "dining",
+    category: "shopping",
     icon: ShoppingCart,
-    timestamp: "Yesterday",
+    timestamp: "Today, 2:45 PM",
     status: "completed",
   },
   {
     id: "5",
-    title: "Gym Membership",
-    amount: "$29.99",
+    title: "Supabase Subscription",
+    amount: "$15.99",
     type: "outgoing",
-    category: "health",
+    category: "entertainment",
     icon: CreditCard,
-    timestamp: "2 days ago",
-    status: "completed",
+    timestamp: "Yesterday",
+    status: "pending",
   },
   {
     id: "6",
-    title: "Freelance Payment",
-    amount: "$850.00",
-    type: "incoming",
-    category: "income",
-    icon: Wallet,
-    timestamp: "2 days ago",
-    status: "completed",
+    title: "Vercel Subscription",
+    amount: "$15.99",
+    type: "outgoing",
+    category: "entertainment",
+    icon: CreditCard,
+    timestamp: "Yesterday",
+    status: "pending",
   },
 ]
 

@@ -15,12 +15,11 @@ interface List01Props {
   className?: string
 }
 
-// Mock data for development
 const ACCOUNTS: AccountItem[] = [
   {
     id: "1",
     title: "Main Savings",
-    description: "Emergency fund",
+    description: "Personal savings",
     balance: "$8,459.45",
     type: "savings",
   },
@@ -41,20 +40,20 @@ const ACCOUNTS: AccountItem[] = [
   {
     id: "4",
     title: "Credit Card",
-    description: "Monthly expenses",
+    description: "Pending charges",
     balance: "$1,200.00",
     type: "debt",
   },
   {
     id: "5",
-    title: "Vacation Fund",
-    description: "Travel savings",
+    title: "Savings Account",
+    description: "Emergency fund",
     balance: "$3,000.00",
     type: "savings",
   },
 ]
 
-export default function List01({ totalBalance = "$30,740.25", accounts = ACCOUNTS, className }: List01Props) {
+export default function List01({ totalBalance = "$26,540.25", accounts = ACCOUNTS, className }: List01Props) {
   return (
     <div
       className={cn(
@@ -65,11 +64,13 @@ export default function List01({ totalBalance = "$30,740.25", accounts = ACCOUNT
         className,
       )}
     >
+      {/* Total Balance Section */}
       <div className="p-4 border-b border-zinc-100 dark:border-zinc-800">
         <p className="text-xs text-zinc-600 dark:text-zinc-400">Total Balance</p>
         <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">{totalBalance}</h1>
       </div>
 
+      {/* Accounts List */}
       <div className="p-3">
         <div className="flex items-center justify-between mb-2">
           <h2 className="text-xs font-medium text-zinc-900 dark:text-zinc-100">Your Accounts</h2>
@@ -92,7 +93,6 @@ export default function List01({ totalBalance = "$30,740.25", accounts = ACCOUNT
                     "bg-emerald-100 dark:bg-emerald-900/30": account.type === "savings",
                     "bg-blue-100 dark:bg-blue-900/30": account.type === "checking",
                     "bg-purple-100 dark:bg-purple-900/30": account.type === "investment",
-                    "bg-red-100 dark:bg-red-900/30": account.type === "debt",
                   })}
                 >
                   {account.type === "savings" && (
@@ -120,6 +120,7 @@ export default function List01({ totalBalance = "$30,740.25", accounts = ACCOUNT
         </div>
       </div>
 
+      {/* Updated footer with four buttons */}
       <div className="p-2 border-t border-zinc-100 dark:border-zinc-800">
         <div className="grid grid-cols-4 gap-2">
           <button

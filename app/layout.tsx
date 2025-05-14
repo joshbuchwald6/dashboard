@@ -1,14 +1,13 @@
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import { ExtensionBlocker } from "@/components/extension-blocker"
+import { AuthProvider } from '@/components/auth/AuthProvider'
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "Budget Tracker Dashboard",
-  description: "A modern budget tracking dashboard with theme switching",
-  generator: 'v0.dev'
+  title: "KokonutUI Dashboard",
+  description: "A modern dashboard with theme switching",
 }
 
 export default function RootLayout({
@@ -20,8 +19,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <ExtensionBlocker />
-          {children}
+          <AuthProvider>
+            {children}
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>
