@@ -54,6 +54,11 @@ const ACCOUNTS: AccountItem[] = [
 ]
 
 export default function List01({ totalBalance = "$26,540.25", accounts = ACCOUNTS, className }: List01Props) {
+  // Ensure accounts is always an array
+  const safeAccounts = accounts?.filter((account): account is AccountItem => {
+    return account != null && typeof account === 'object' && 'type' in account;
+  }) ?? [];
+
   return (
     <div
       className={cn(
@@ -77,7 +82,7 @@ export default function List01({ totalBalance = "$26,540.25", accounts = ACCOUNT
         </div>
 
         <div className="space-y-1">
-          {accounts.map((account) => (
+          {safeAccounts.map((account) => (
             <div
               key={account.id}
               className={cn(
@@ -93,6 +98,7 @@ export default function List01({ totalBalance = "$26,540.25", accounts = ACCOUNT
                     "bg-emerald-100 dark:bg-emerald-900/30": account.type === "savings",
                     "bg-blue-100 dark:bg-blue-900/30": account.type === "checking",
                     "bg-purple-100 dark:bg-purple-900/30": account.type === "investment",
+                    "bg-red-100 dark:bg-red-900/30": account.type === "debt",
                   })}
                 >
                   {account.type === "savings" && (
