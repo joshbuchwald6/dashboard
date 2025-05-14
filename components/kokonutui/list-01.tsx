@@ -57,22 +57,18 @@ export default function List01({ totalBalance = "$26,540.25", accounts = ACCOUNT
   // More robust type guard with null checks
   const validTypes = ['savings', 'checking', 'investment', 'debt'] as const;
   const safeAccounts = (accounts ?? []).filter((account): account is AccountItem => {
-    try {
-      if (!account) return false;
-      if (typeof account !== 'object') return false;
-      if (account === null) return false;
-      
-      // Check if all required properties exist and are of correct type
-      if (!('id' in account) || typeof account.id !== 'string') return false;
-      if (!('title' in account) || typeof account.title !== 'string') return false;
-      if (!('balance' in account) || typeof account.balance !== 'string') return false;
-      if (!('type' in account) || typeof account.type !== 'string') return false;
-      
-      // Validate type is one of the allowed values
-      return validTypes.includes(account.type as typeof validTypes[number]);
-    } catch {
-      return false;
-    }
+    if (!account) return false;
+    if (typeof account !== 'object') return false;
+    if (account === null) return false;
+    
+    // Check if all required properties exist and are of correct type
+    if (!('id' in account) || typeof account.id !== 'string') return false;
+    if (!('title' in account) || typeof account.title !== 'string') return false;
+    if (!('balance' in account) || typeof account.balance !== 'string') return false;
+    if (!('type' in account) || typeof account.type !== 'string') return false;
+    
+    // Validate type is one of the allowed values
+    return validTypes.includes(account.type as typeof validTypes[number]);
   });
 
   return (
@@ -99,8 +95,10 @@ export default function List01({ totalBalance = "$26,540.25", accounts = ACCOUNT
 
         <div className="space-y-1">
           {safeAccounts.map((account) => {
-            // Additional safety check before rendering
-            if (!account || !account.type) return null;
+            // Enhanced safety check before rendering
+            if (!account?.id || !account?.type || !validTypes.includes(account.type)) {
+              return null;
+            }
             
             return (
               <div
