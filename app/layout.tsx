@@ -1,13 +1,18 @@
+```tsx
+"use client"
+
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import { useEffect } from "react"
+import { blockCryptoExtensions } from "@/lib/block-extensions"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "KokonutUI Dashboard",
-  description: "A modern dashboard with theme switching",
-    generator: 'v0.dev'
+  title: "Budget Tracker Dashboard",
+  description: "A modern budget tracking dashboard with theme switching",
+  generator: 'v0.dev'
 }
 
 export default function RootLayout({
@@ -15,6 +20,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  useEffect(() => {
+    blockCryptoExtensions();
+  }, []);
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
@@ -25,3 +34,4 @@ export default function RootLayout({
     </html>
   )
 }
+```
