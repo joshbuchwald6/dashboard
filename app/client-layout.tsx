@@ -12,7 +12,7 @@ import ComingSoon from '@/components/ComingSoon'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export function ClientLayout({ children }: { children: React.ReactNode }) {
+export function ClientLayout() {
   const { section } = useDashboardSection()
 
   const renderContent = () => {

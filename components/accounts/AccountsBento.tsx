@@ -1,9 +1,5 @@
 import { Card } from '@/components/ui/card'
-import { Bar, Doughnut } from 'react-chartjs-2'
-import 'chart.js/auto'
-import { CreditCard, TrendingUp, Zap, Info, Plus, Send, ArrowDownLeft, ArrowUpRight, Banknote, User, Wallet, PiggyBank, LineChart, ChevronRight } from 'lucide-react'
-import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip'
-import { Progress } from '@/components/ui/progress'
+import { ArrowDownLeft, ArrowUpRight, Plus, Send, User, CreditCard } from 'lucide-react'
 
 const accounts = [
   {
@@ -69,24 +65,6 @@ const recentActivity = [
     up: false,
   },
 ]
-
-const accountTypeData = {
-  labels: ['Savings', 'Checking', 'Investment', 'Credit'],
-  datasets: [
-    {
-      data: [2, 1, 1, 1],
-      backgroundColor: ['#34d399', '#38bdf8', '#a78bfa', '#f472b6'],
-      borderWidth: 0,
-    },
-  ],
-}
-
-const accountTypeOptions = {
-  plugins: { legend: { display: false }, tooltip: { enabled: true } },
-  cutout: '70%',
-  responsive: true,
-  maintainAspectRatio: false,
-}
 
 const totalBalance = accounts.reduce((sum, acc) => sum + acc.balance, 0)
 
