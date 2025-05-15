@@ -207,7 +207,7 @@ export default function BudgetPage() {
                 <Progress
                   value={(category.spent / category.budget) * 100}
                   className="h-2"
-                  indicatorClassName={`${
+                  className-indicator={`${
                     category.spent > category.budget ? 'bg-red-500' : ''
                   }`}
                 />
