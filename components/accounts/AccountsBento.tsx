@@ -1,23 +1,73 @@
 import { Card } from '@/components/ui/card'
 import { Bar, Doughnut } from 'react-chartjs-2'
 import 'chart.js/auto'
-import { CreditCard, TrendingUp, Zap, Info, Plus, Send, ArrowDownLeft, ArrowUpRight, Banknote, User } from 'lucide-react'
+import { CreditCard, TrendingUp, Zap, Info, Plus, Send, ArrowDownLeft, ArrowUpRight, Banknote, User, Wallet, PiggyBank, LineChart, ChevronRight } from 'lucide-react'
 import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip'
+import { Progress } from '@/components/ui/progress'
 
 const accounts = [
-  { name: 'Main Savings', type: 'Savings', balance: 8459.45, icon: <TrendingUp className='w-4 h-4 text-green-400' /> },
-  { name: 'Checking Account', type: 'Checking', balance: 2850.00, icon: <CreditCard className='w-4 h-4 text-blue-400' /> },
-  { name: 'Investment Portfolio', type: 'Investment', balance: 15230.80, icon: <TrendingUp className='w-4 h-4 text-purple-400' /> },
-  { name: 'Credit Card', type: 'Credit', balance: 1200.00, icon: <CreditCard className='w-4 h-4 text-red-400' /> },
-  { name: 'Savings Account', type: 'Savings', balance: 3000.00, icon: <TrendingUp className='w-4 h-4 text-green-400' /> },
+  {
+    name: 'Main Savings',
+    type: 'Savings',
+    balance: 8459.45,
+    change: '+2.3%',
+    up: true,
+    chart: [40, 60, 55, 70, 80, 90, 100],
+  },
+  {
+    name: 'Checking Account',
+    type: 'Checking',
+    balance: 2850.0,
+    change: '-0.5%',
+    up: false,
+    chart: [100, 90, 85, 80, 75, 70, 65],
+  },
+  {
+    name: 'Investment Portfolio',
+    type: 'Investment',
+    balance: 15230.8,
+    change: '+4.8%',
+    up: true,
+    chart: [60, 65, 70, 80, 90, 110, 120],
+  },
 ]
 
 const recentActivity = [
-  { name: 'Apple Store Purchase', amount: -999, date: 'Today, 2:45 PM', icon: <ArrowUpRight className='w-4 h-4 text-red-400' /> },
-  { name: 'Salary Deposit', amount: 4500, date: 'Today, 9:00 AM', icon: <ArrowDownLeft className='w-4 h-4 text-green-400' /> },
-  { name: 'Netflix Subscription', amount: -15.99, date: 'Yesterday', icon: <ArrowUpRight className='w-4 h-4 text-red-400' /> },
-  { name: 'Supabase Subscription', amount: -15.99, date: 'Yesterday', icon: <ArrowUpRight className='w-4 h-4 text-red-400' /> },
-  { name: 'Vercel Subscription', amount: -15.99, date: 'Yesterday', icon: <ArrowUpRight className='w-4 h-4 text-red-400' /> },
+  {
+    name: 'Apple Store Purchase',
+    amount: -999,
+    date: 'Today, 2:45 PM',
+    category: 'Shopping',
+    up: false,
+  },
+  {
+    name: 'Salary Deposit',
+    amount: 4500,
+    date: 'Today, 9:00 AM',
+    category: 'Income',
+    up: true,
+  },
+  {
+    name: 'Netflix Subscription',
+    amount: -15.99,
+    date: 'Yesterday',
+    category: 'Entertainment',
+    up: false,
+  },
+  {
+    name: 'Supabase Subscription',
+    amount: -15.99,
+    date: 'Yesterday',
+    category: 'Services',
+    up: false,
+  },
+  {
+    name: 'Vercel Subscription',
+    amount: -15.99,
+    date: 'Yesterday',
+    category: 'Services',
+    up: false,
+  },
 ]
 
 const accountTypeData = {
@@ -30,6 +80,7 @@ const accountTypeData = {
     },
   ],
 }
+
 const accountTypeOptions = {
   plugins: { legend: { display: false }, tooltip: { enabled: true } },
   cutout: '70%',
@@ -39,93 +90,102 @@ const accountTypeOptions = {
 
 const totalBalance = accounts.reduce((sum, acc) => sum + acc.balance, 0)
 
+function MiniChart({ data, up }: { data: number[]; up: boolean }) {
+  // Compact sparkline
+  const points = data.map((v: number, i: number) => `${i * 18},${32 - v * 0.25}`).join(' ')
+  return (
+    <svg width="108" height="16" viewBox="0 0 108 16" fill="none">
+      <polyline
+        points={points}
+        fill="none"
+        stroke={up ? '#22c55e' : '#ef4444'}
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 export default function AccountsBento() {
   return (
-    <TooltipProvider>
-      <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 font-sans'>
-        {/* Total Balance */}
-        <Card className='col-span-1 xl:col-span-2 p-6 flex flex-col bg-zinc-900 border border-zinc-800'>
-          <div className='flex items-center justify-between mb-2'>
-            <h2 className='text-lg font-bold text-purple-400 flex items-center gap-2'>
-              <Banknote className='w-5 h-5' /> Accounts
-            </h2>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Info className='w-4 h-4 text-zinc-400 cursor-pointer' />
-              </TooltipTrigger>
-              <TooltipContent>Total balance across all accounts.</TooltipContent>
-            </Tooltip>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-sans">
+      {/* Accounts Overview */}
+      <Card className="col-span-2 bg-[#111113] rounded-2xl p-8 shadow-none border border-black/60">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <div className="bg-[#232326] rounded-xl p-3">
+              <CreditCard className="w-6 h-6 text-white/80" />
+            </div>
+            <h2 className="text-2xl font-bold text-white">Accounts Overview</h2>
           </div>
-          <div className='text-3xl font-bold text-white mb-2'>${totalBalance.toLocaleString(undefined, { minimumFractionDigits: 2 })}</div>
-          <div className='text-zinc-400 text-sm mb-4'>Your Accounts</div>
-          <ul className='space-y-2 mb-4'>
-            {accounts.map(acc => (
-              <li key={acc.name} className='flex items-center gap-3 text-zinc-200'>
-                {acc.icon}
-                <span className='font-medium'>{acc.name}</span>
-                <span className='ml-auto text-zinc-400 text-sm'>${acc.balance.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
-              </li>
-            ))}
-          </ul>
-          <div className='flex gap-2 mt-2'>
-            <button className='bg-zinc-800 px-4 py-2 rounded-lg text-sm text-white flex items-center gap-2 hover:bg-purple-600 transition'><Plus className='w-4 h-4' /> Add</button>
-            <button className='bg-zinc-800 px-4 py-2 rounded-lg text-sm text-white flex items-center gap-2 hover:bg-blue-600 transition'><Send className='w-4 h-4' /> Send</button>
-            <button className='bg-zinc-800 px-4 py-2 rounded-lg text-sm text-white flex items-center gap-2 hover:bg-green-600 transition'><Zap className='w-4 h-4' /> Top-up</button>
-            <button className='bg-zinc-800 px-4 py-2 rounded-lg text-sm text-white flex items-center gap-2 hover:bg-zinc-700 transition'>More</button>
+          <div className="flex gap-2">
+            <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-black text-white text-sm font-medium hover:bg-zinc-800 transition border border-zinc-800">
+              <Plus className="w-4 h-4" /> Add Account
+            </button>
+            <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#a259ff] text-white text-sm font-medium hover:bg-[#7c3aed] transition">
+              <Send className="w-4 h-4" /> Transfer
+            </button>
           </div>
-        </Card>
-
-        {/* Recent Activity */}
-        <Card className='p-6 flex flex-col bg-zinc-900 border border-zinc-800'>
-          <div className='flex items-center justify-between mb-2'>
-            <h2 className='text-lg font-bold text-purple-400 flex items-center gap-2'>
-              <User className='w-5 h-5' /> Recent Transactions
-            </h2>
+        </div>
+        <div className="text-4xl font-extrabold text-white mb-1">${totalBalance.toLocaleString(undefined, { minimumFractionDigits: 2 })}</div>
+        <div className="text-zinc-400 text-base mb-6">Total Balance</div>
+        <div className="space-y-4">
+          {accounts.map((acc, i) => (
+            <div key={i} className="flex items-center gap-4 bg-[#18181b] rounded-xl px-5 py-4">
+              <div className="w-12 h-12 rounded-lg bg-[#232326] flex items-center justify-center">
+                <CreditCard className="w-6 h-6 text-white/60" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className="text-lg font-bold text-white truncate">{acc.name}</span>
+                  <span className="text-xs text-zinc-400 font-medium">{acc.type}</span>
+                </div>
+                <div className="flex items-center gap-2 mt-1">
+                  <span className="text-2xl font-extrabold text-white">${acc.balance.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+                  <span className={`text-sm font-bold ${acc.up ? 'text-green-400' : 'text-red-400'} flex items-center gap-1`}>
+                    {acc.up ? <ArrowUpRight className="w-4 h-4" /> : <ArrowDownLeft className="w-4 h-4" />}
+                    {acc.change}
+                  </span>
+                </div>
+                <div className="mt-1">
+                  <MiniChart data={acc.chart} up={acc.up} />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Card>
+      {/* Recent Activity */}
+      <Card className="bg-[#111113] rounded-2xl p-8 shadow-none border border-black/60 flex flex-col">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="bg-[#232326] rounded-xl p-3">
+            <User className="w-6 h-6 text-white/80" />
           </div>
-          <div className='text-zinc-400 text-xs mb-2'>Recent Activity (23 transactions)</div>
-          <ul className='space-y-2'>
-            {recentActivity.map(tx => (
-              <li key={tx.name} className='flex items-center gap-2 text-zinc-200'>
-                {tx.icon}
-                <span className='font-medium'>{tx.name}</span>
-                <span className={`ml-auto font-mono ${tx.amount >= 0 ? 'text-green-400' : 'text-red-400'}`}>{tx.amount >= 0 ? '+' : ''}${Math.abs(tx.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
-              </li>
-            ))}
-          </ul>
-          <button className='mt-4 w-full bg-zinc-800 text-white rounded-lg py-2 text-sm hover:bg-purple-700 transition'>View All Transactions →</button>
-        </Card>
-
-        {/* Account Types */}
-        <Card className='p-6 flex flex-col bg-zinc-900 border border-zinc-800'>
-          <div className='flex items-center justify-between mb-2'>
-            <h2 className='text-lg font-bold text-purple-400 flex items-center gap-2'>
-              <CreditCard className='w-5 h-5' /> Account Types
-            </h2>
-          </div>
-          <div className='h-32 mb-2'>
-            <Doughnut data={accountTypeData} options={accountTypeOptions} />
-          </div>
-          <ul className='space-y-1'>
-            {accountTypeData.labels.map((label, i) => (
-              <li key={label} className='flex justify-between text-sm text-zinc-200'>
-                <span>{label}</span>
-                <span className='text-zinc-400'>{accountTypeData.datasets[0].data[i]}</span>
-              </li>
-            ))}
-          </ul>
-        </Card>
-
-        {/* Insights - full width on bottom */}
-        <Card className='col-span-1 md:col-span-2 xl:col-span-3 p-6 flex flex-col bg-gradient-to-r from-purple-700 to-indigo-700 border-0'>
-          <div className='flex items-center gap-2 mb-2'>
-            <Zap className='w-5 h-5 text-white' />
-            <h2 className='text-lg font-bold text-white'>Insights</h2>
-          </div>
-          <div className='text-zinc-200 text-sm mb-1'>Personalized AI insight</div>
-          <p className='text-white mb-2'>Your savings account is earning 4.2% APY. Consider moving more funds for higher returns!</p>
-          <a href='#' className='text-xs text-white underline hover:text-zinc-200 transition'>View more insights</a>
-        </Card>
-      </div>
-    </TooltipProvider>
+          <h2 className="text-2xl font-bold text-white">Recent Activity</h2>
+        </div>
+        <div className="flex-1 flex flex-col gap-3">
+          {recentActivity.map((tx, i) => (
+            <div key={i} className="flex items-center gap-3 bg-[#18181b] rounded-xl px-4 py-3">
+              <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${tx.up ? 'bg-green-900/30' : 'bg-red-900/30'}`}>
+                {tx.up ? <ArrowDownLeft className="w-5 h-5 text-green-400" /> : <ArrowUpRight className="w-5 h-5 text-red-400" />}
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center justify-between">
+                  <span className="font-medium text-white truncate">{tx.name}</span>
+                  <span className={`font-mono text-lg font-bold ${tx.up ? 'text-green-400' : 'text-red-400'}`}>{tx.up ? '+' : '-'}${Math.abs(tx.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+                </div>
+                <div className="flex items-center justify-between mt-0.5">
+                  <span className="text-xs text-zinc-400">{tx.date}</span>
+                  <span className="text-xs text-zinc-400">{tx.category}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <button className="mt-6 w-full bg-black text-white rounded-xl py-3 text-base font-medium hover:bg-zinc-800 transition flex items-center justify-center gap-2 border border-zinc-800">
+          View All Transactions <ArrowUpRight className="w-4 h-4" />
+        </button>
+      </Card>
+    </div>
   )
 } 
