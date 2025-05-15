@@ -12,6 +12,7 @@ import TransactionsPage from '@/app/transactions/page'
 import BudgetPage from '@/app/budget/page'
 import SpendingTrendsPage from '@/app/spending-trends/page'
 import GoalsPage from '@/app/goals/page'
+import InvestmentsPage from '@/app/investments/page'
 import ComingSoon from '@/components/ComingSoon'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -34,6 +35,7 @@ export function ClientLayout() {
       case 'goals':
         return <GoalsPage />
       case 'investments':
+        return <InvestmentsPage />
       case 'tax-tools':
       case 'settings':
       case 'profile':
