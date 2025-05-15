@@ -1,4 +1,3 @@
-```typescript
 'use client'
 
 import { Inter } from 'next/font/google'
@@ -69,4 +68,3 @@ export function ClientLayout() {
     </ThemeProvider>
   )
 }
-```
