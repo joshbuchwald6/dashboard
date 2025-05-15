@@ -11,6 +11,7 @@ import AccountsBento from '@/components/accounts/AccountsBento'
 import TransactionsPage from '@/app/transactions/page'
 import BudgetPage from '@/app/budget/page'
 import SpendingTrendsPage from '@/app/spending-trends/page'
+import GoalsPage from '@/app/goals/page'
 import ComingSoon from '@/components/ComingSoon'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -31,6 +32,7 @@ export function ClientLayout() {
       case 'spending-trends':
         return <SpendingTrendsPage />
       case 'goals':
+        return <GoalsPage />
       case 'investments':
       case 'tax-tools':
       case 'settings':
