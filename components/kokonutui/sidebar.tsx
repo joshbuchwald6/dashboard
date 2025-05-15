@@ -41,8 +41,8 @@ export default function Sidebar() {
       <button
         onClick={() => setSection(item.key)}
         className={`
-          flex items-center w-full px-5 py-3 rounded-xl transition-colors
-          text-base font-medium
+          flex items-center w-full px-4 py-1.5 rounded-2xl transition-colors
+          text-base font-medium justify-start
           ${isActive
             ? 'bg-white/10 text-white'
             : 'text-zinc-300 hover:bg-white/5 hover:text-white'}
@@ -58,7 +58,7 @@ export default function Sidebar() {
   }
 
   return (
-    <nav className="h-full flex flex-col bg-zinc-950/80 border-r border-zinc-800 w-64 min-w-64 backdrop-blur-md">
+    <nav className="h-full flex flex-col bg-zinc-950/80 border-r border-zinc-800 w-64 min-w-64 backdrop-blur-md px-3">
       <div className="flex flex-col flex-1">
         <div className="h-20 flex items-center justify-center border-b border-zinc-800">
           <span className="text-2xl font-bold text-white tracking-tight">Budget</span>
