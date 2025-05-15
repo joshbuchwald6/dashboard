@@ -60,7 +60,7 @@ export default function Sidebar() {
   return (
     <nav className="h-full flex flex-col bg-zinc-950/80 border-r border-zinc-800 w-64 min-w-64 backdrop-blur-md px-3">
       <div className="flex flex-col flex-1">
-        <div className="h-20 flex items-center justify-center border-b border-zinc-800">
+        <div className="h-20 flex items-center justify-center">
           <span className="text-2xl font-bold text-white tracking-tight">Budget</span>
         </div>
         <div className="flex-1 flex flex-col justify-between">
