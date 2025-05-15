@@ -117,7 +117,7 @@ export default function AuthPage() {
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-black text-white">
-      <SpaceBackground className="pointer-events-none" />
+      <SpaceBackground />
       <div className="flex min-h-screen items-center justify-center relative z-10">
         <div className="w-full max-w-xl bg-zinc-900/90 rounded-xl shadow-2xl border border-zinc-800 p-8">
           <div className="mb-6">
