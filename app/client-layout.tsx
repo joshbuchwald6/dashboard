@@ -9,6 +9,7 @@ import { useDashboardSection } from '@/store/useDashboardSection'
 import DashboardBento from '@/components/kokonutui/dashboard-bento'
 import AccountsBento from '@/components/accounts/AccountsBento'
 import TransactionsPage from '@/app/transactions/page'
+import BudgetPage from '@/app/budget/page'
 import ComingSoon from '@/components/ComingSoon'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -25,6 +26,7 @@ export function ClientLayout() {
       case 'transactions':
         return <TransactionsPage />
       case 'budget':
+        return <BudgetPage />
       case 'spending-trends':
       case 'goals':
       case 'investments':
