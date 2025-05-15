@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import { Inter } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
@@ -10,6 +10,7 @@ import DashboardBento from '@/components/kokonutui/dashboard-bento'
 import AccountsBento from '@/components/accounts/AccountsBento'
 import TransactionsPage from '@/app/transactions/page'
 import BudgetPage from '@/app/budget/page'
+import SpendingTrendsPage from '@/app/spending-trends/page'
 import ComingSoon from '@/components/ComingSoon'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -28,6 +29,7 @@ export function ClientLayout() {
       case 'budget':
         return <BudgetPage />
       case 'spending-trends':
+        return <SpendingTrendsPage />
       case 'goals':
       case 'investments':
       case 'tax-tools':
