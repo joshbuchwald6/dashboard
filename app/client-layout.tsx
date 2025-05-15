@@ -1,4 +1,5 @@
-"use client"
+```typescript
+'use client'
 
 import { Inter } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
@@ -13,6 +14,7 @@ import BudgetPage from '@/app/budget/page'
 import SpendingTrendsPage from '@/app/spending-trends/page'
 import GoalsPage from '@/app/goals/page'
 import InvestmentsPage from '@/app/investments/page'
+import TaxToolsPage from '@/app/tax-tools/page'
 import ComingSoon from '@/components/ComingSoon'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -37,6 +39,7 @@ export function ClientLayout() {
       case 'investments':
         return <InvestmentsPage />
       case 'tax-tools':
+        return <TaxToolsPage />
       case 'settings':
       case 'profile':
       case 'help':
@@ -66,3 +69,4 @@ export function ClientLayout() {
     </ThemeProvider>
   )
 }
+```
