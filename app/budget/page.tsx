@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 import { motion, AnimatePresence } from 'framer-motion'
-import { PieChart, Line } from 'react-chartjs-2'
+import { Pie, Line } from 'react-chartjs-2'
 import { Plus, Pencil, Trash2, ArrowUpRight, PiggyBank, Wallet, TrendingUp, DollarSign } from 'lucide-react'
 
 const categories = [
@@ -143,7 +143,7 @@ export default function BudgetPage() {
         <Card className="p-6 bg-zinc-900 border border-zinc-800">
           <h3 className="text-lg font-semibold text-white mb-6">Spending Distribution</h3>
           <div className="h-[300px] flex items-center justify-center">
-            <PieChart
+            <Pie
               data={pieData}
               options={{
                 responsive: true,
