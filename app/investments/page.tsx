@@ -236,6 +236,7 @@ export default function InvestmentsPage() {
                   },
                   x: {
                     ticks: { color: '#94a3b8' },
+                
                     grid: { color: '#27272a' }
                   }
                 }

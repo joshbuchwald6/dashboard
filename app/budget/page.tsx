@@ -206,10 +206,7 @@ export default function BudgetPage() {
               <div className="relative">
                 <Progress
                   value={(category.spent / category.budget) * 100}
-                  className="h-2"
-                  indicatorClassName={`${
-                    category.spent > category.budget ? 'bg-red-500' : ''
-                  }`}
+                  className={`h-2 ${category.spent > category.budget ? 'bg-red-500' : ''}`}
                 />
                 {category.spent > category.budget && (
                   <div className="absolute top-3 right-0 text-xs text-red-400 flex items-center gap-1">
