@@ -1,6 +1,7 @@
 import './globals.css'
 import { ClientLayout } from './client-layout'
 import { Inter } from 'next/font/google'
+import { TellerConnectScript } from '@/components/teller/TellerConnectScript'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,6 +17,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <TellerConnectScript />
+      </head>
       <body className={inter.className}>
         <ClientLayout>{children}</ClientLayout>
       </body>
