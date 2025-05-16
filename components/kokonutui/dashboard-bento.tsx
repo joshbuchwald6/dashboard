@@ -117,22 +117,7 @@ export function DashboardBento() {
             <span className='text-zinc-400 text-xs'>(32 transactions)</span>
           </div>
           <div className='h-32'>
-            <Bar data={spendingData} options={{
-              plugins: {
-                legend: { display: false },
-                tooltip: { enabled: false }
-              },
-              indexAxis: 'y',
-              scales: {
-                x: { display: false },
-                y: {
-                  display: false,
-                  ticks: { color: '#fff' }
-                }
-              },
-              responsive: true,
-              maintainAspectRatio: false
-            }} />
+            <Bar data={spendingData} options={spendingOptions} />
           </div>
         </Card>
 

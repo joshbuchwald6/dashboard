@@ -17,10 +17,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <TellerConnectScript />
-      </head>
       <body className={inter.className}>
+        <TellerConnectScript />
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>

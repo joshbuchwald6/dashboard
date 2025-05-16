@@ -12,8 +12,8 @@ interface Step2Props {
 export default function Step2({ onAnswer, answer }: Step2Props) {
   const handleChange = (field: 'height' | 'weight', value: string) => {
     onAnswer({
-      height: field === 'height' ? value : answer?.height || '',
-      weight: field === 'weight' ? value : answer?.weight || ''
+      ...answer,
+      [field]: value
     })
   }
 

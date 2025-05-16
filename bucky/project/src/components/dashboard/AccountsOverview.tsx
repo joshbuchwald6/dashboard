@@ -1,5 +1,5 @@
 import React from 'react';
-import { Wallet, PlusCircle, Send } from 'lucide-react';
+import { Wallet, ArrowRight, PlusCircle, Send, ArrowUpRight } from 'lucide-react';
 import { Card } from '../ui/Card';
 
 interface AccountProps {
