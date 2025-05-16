@@ -7,6 +7,7 @@ import { SpaceBackground } from '@/app/components/space-background'
 import { Card } from '@/components/ui/card'
 import { ArrowDownLeft, ArrowUpRight, CreditCard, FileText, Calendar, TrendingUp, PieChart, DollarSign, Target, Sparkles } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { Loader2 } from 'lucide-react'
 
 const accounts = [
   {
@@ -56,6 +57,15 @@ export default function DashboardPage() {
     }
   }, [user, loading, router])
 
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-zinc-400" />
+        <span className="ml-2 text-zinc-400">Loading...</span>
+      </div>
+    )
+  }
+
   if (!user) {
     return null
   }
@@ -65,6 +75,21 @@ export default function DashboardPage() {
       <SpaceBackground />
       <div className="relative z-10 p-8">
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 max-w-[1600px] mx-auto">
+          {/* Welcome Message */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="col-span-full"
+          >
+            <Card className="bg-zinc-900/50 border-zinc-800 p-6">
+              <h1 className="text-2xl font-bold text-white">
+                Welcome back, {user.displayName || user.email?.split('@')[0] || 'User'}!
+              </h1>
+              <p className="text-zinc-400 mt-2">Here's an overview of your financial dashboard.</p>
+            </Card>
+          </motion.div>
+
           {/* Accounts Overview */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}

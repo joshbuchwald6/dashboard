@@ -9,6 +9,7 @@ import { ThemeToggle } from "../theme-toggle"
 import { useAuth } from '@/components/auth/AuthProvider'
 import type { User as FirebaseUser } from 'firebase/auth'
 import React from 'react'
+import { useRouter } from 'next/navigation'
 
 interface BreadcrumbItem {
   label: string
@@ -16,11 +17,17 @@ interface BreadcrumbItem {
 }
 
 export default function TopNav() {
-  const { user } = useAuth() as { user: FirebaseUser | null }
+  const { user, loading } = useAuth() as { user: FirebaseUser | null, loading: boolean }
+  const router = useRouter()
   const breadcrumbs: BreadcrumbItem[] = [
     { label: "kokonutUI", href: "#" },
     { label: "dashboard", href: "#" },
   ]
+
+  // Show nothing while loading or if not authenticated
+  if (loading || !user) {
+    return null
+  }
 
   return (
     <nav className="h-20 flex items-center px-12 py-4 border-b border-zinc-800 bg-zinc-950/80">
@@ -55,8 +62,8 @@ export default function TopNav() {
         <DropdownMenu>
           <DropdownMenuTrigger className="focus:outline-none">
             <Image
-              src={user?.photoURL || '/default-avatar.png'}
-              alt={user?.displayName || user?.email || 'User avatar'}
+              src={user.photoURL || '/default-avatar.png'}
+              alt={user.displayName || user.email || 'User avatar'}
               width={36}
               height={36}
               className="rounded-full ring-2 ring-gray-200 dark:ring-[#2B2B30] cursor-pointer"
@@ -68,9 +75,9 @@ export default function TopNav() {
             className="w-[280px] sm:w-80 bg-background border-border rounded-lg shadow-lg"
           >
             <Profile01
-              name={user?.displayName || user?.email || 'User'}
-              role={user?.email || ''}
-              avatar={user?.photoURL || '/default-avatar.png'}
+              name={user.displayName || user.email || ''}
+              role={user.email || ''}
+              avatar={user.photoURL || '/default-avatar.png'}
             />
           </DropdownMenuContent>
         </DropdownMenu>

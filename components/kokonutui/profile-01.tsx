@@ -20,19 +20,12 @@ interface Profile01Props {
   subscription?: string
 }
 
-const defaultProfile = {
-  name: "Eugene An",
-  role: "Prompt Engineer",
-  avatar: "https://ferf1mheo22r9ira.public.blob.vercel-storage.com/avatar-02-albo9B0tWOSLXCVZh9rX9KFxXIVWMr.png",
-  subscription: "Free Trial",
-} satisfies Required<Profile01Props>
-
 export default function Profile01({
-  name = defaultProfile.name,
-  role = defaultProfile.role,
-  avatar = defaultProfile.avatar,
-  subscription = defaultProfile.subscription,
-}: Partial<Profile01Props> = defaultProfile) {
+  name,
+  role,
+  avatar,
+  subscription = 'Free Trial'
+}: Profile01Props) {
   const router = useRouter()
   const menuItems: MenuItem[] = [
     {

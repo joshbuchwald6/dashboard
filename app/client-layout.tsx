@@ -15,11 +15,23 @@ import GoalsPage from '@/app/goals/page'
 import InvestmentsPage from '@/app/investments/page'
 import TaxToolsPage from '@/app/tax-tools/page'
 import ComingSoon from '@/components/ComingSoon'
+import { useAuth } from '@/components/auth/AuthProvider'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
+import { Loader2 } from 'lucide-react'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export function ClientLayout() {
+export function ClientLayout({ children }: { children: React.ReactNode }) {
   const { section } = useDashboardSection()
+  const { user, loading } = useAuth()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.replace('/')
+    }
+  }, [user, loading, router])
 
   const renderContent = () => {
     switch (section) {
@@ -46,6 +58,19 @@ export function ClientLayout() {
       default:
         return <DashboardBento />
     }
+  }
+
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-zinc-400" />
+        <span className="ml-2 text-zinc-400">Loading...</span>
+      </div>
+    )
+  }
+
+  if (!user) {
+    return <>{children}</>
   }
 
   return (
